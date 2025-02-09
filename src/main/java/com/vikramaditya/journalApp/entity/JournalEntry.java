@@ -1,10 +1,9 @@
 package com.vikramaditya.journalApp.entity;
 
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Document(collection = "journal_entries")
 public class JournalEntry {
@@ -16,8 +15,8 @@ public class JournalEntry {
 
     private String content;
 
-    @CreatedDate
-    private Date date;
+
+    private LocalDate date;
 
     public String getId() {
         return id;
@@ -43,11 +42,11 @@ public class JournalEntry {
         this.content = content;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 }

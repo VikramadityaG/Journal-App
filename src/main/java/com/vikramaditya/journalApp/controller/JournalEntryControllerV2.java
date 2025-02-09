@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -31,6 +32,11 @@ public class JournalEntryControllerV2 {
     @PostMapping
     public ResponseEntity<String> createEntry(@RequestBody JournalEntry myEntry) {
         try {
+
+            if (myEntry.getDate() == null) {
+                myEntry.setDate(LocalDate.now());
+            }
+
             journalEntryService.saveEntry(myEntry);
 
             // Return HTTP 201 Created with a success message
