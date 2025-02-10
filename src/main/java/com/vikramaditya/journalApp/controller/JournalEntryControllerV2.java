@@ -3,12 +3,12 @@ package com.vikramaditya.journalApp.controller;
 
 import com.vikramaditya.journalApp.entity.JournalEntry;
 import com.vikramaditya.journalApp.service.JournalEntryService;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -34,7 +34,7 @@ public class JournalEntryControllerV2 {
         try {
 
             if (myEntry.getDate() == null) {
-                myEntry.setDate(LocalDate.now());
+                myEntry.setDate(LocalDateTime.now());
             }
 
             journalEntryService.saveEntry(myEntry);
@@ -49,21 +49,21 @@ public class JournalEntryControllerV2 {
 
 
     @GetMapping("id/{myId}")
-    public JournalEntry GetEntryById(@PathVariable String myId) {
+    public JournalEntry GetEntryById(@PathVariable ObjectId myId) {
         return journalEntryService.getEntryById(myId)
                 .orElseThrow(() -> new RuntimeException("JournalEntry not found with ID: " + myId));
     }
 
 
     @DeleteMapping("id/{myId}")
-    public JournalEntry DeleteEntryById(@PathVariable String myId){
+    public JournalEntry DeleteEntryById(@PathVariable ObjectId myId){
         return journalEntryService.deleteEntryById(myId)
                 .orElseThrow(() -> new RuntimeException("JournalEntry not found with ID: " + myId));
 
     }
 
     @PutMapping("id/{myId}")
-    public JournalEntry UpdateEntryById(@PathVariable String myId, @RequestBody JournalEntry myEntry){
+    public JournalEntry UpdateEntryById(@PathVariable ObjectId myId, @RequestBody JournalEntry myEntry){
         return journalEntryService.updateEntryById(myId, myEntry)
                 .orElseThrow(() -> new RuntimeException("JournalEntry not found with ID: " + myId));
 
